@@ -6,14 +6,18 @@ import {
 } from "react-router-dom";
 import Input from './components/Input';
 import List from './components/List';
+import Game from './components/Game';
 
 function App() {
   return (
     <div className="App">
       <Router>
-      <Route exact path="/">
+        <Route exact path="/">
           <Input/>
           <List/>
+        </Route>
+        <Route path="/game">
+          <Game/>
         </Route>
       </Router>
     </div>
