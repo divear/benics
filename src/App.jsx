@@ -2,9 +2,7 @@
 import './App.css';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Input from './components/Input';
 import List from './components/List';
