@@ -7,6 +7,7 @@ import {
 import Input from './components/Input';
 import List from './components/List';
 import Game from './components/Game';
+import Fail from './components/Fail';
 
 function App() {
   return (
@@ -19,7 +20,11 @@ function App() {
         <Route path="/game">
           <Game/>
         </Route>
+        <Route path="/fail">
+          <Fail />
+        </Route>
       </Router>
+      
     </div>
   );
 }

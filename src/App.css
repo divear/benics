@@ -50,3 +50,18 @@ body{
     background-color: rgb(0, 0, 0);
     cursor: none;
 }
+.fail{
+    text-align: center;
+    margin: 10vw;
+}
+.leader{
+    position: absolute;
+    right: 1%;
+    top: 1%;
+}
+.titleS{
+    text-align: left;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+}
