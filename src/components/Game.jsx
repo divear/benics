@@ -33,8 +33,8 @@ function Game() {
       ctx.fillRect(mousePos.x, mousePos.y, 100, 20)
 
       if(rand > mousePos.x && rand < mousePos.x + 100){
-        
         //if he catches the ball
+
         if(fr < 5){
           rand = Math.random() * window.innerWidth
         }
@@ -43,8 +43,31 @@ function Game() {
         setScore(score + 1)
         localStorage.setItem("score", score);
       }
-
     }
+
+    useEffect(() => {
+      setSpeed(speed + 0.2)
+      const timer = setTimeout(async()=>{
+          try {
+              const Rname = {username}
+              const Rscore = {score}
+    
+              const arr = [Rname, Rscore]
+              const response = await fetch("http://localhost:4001/scores", {
+                  method: "POST",
+                  headers: {"Content-Type": "application/json"},
+                  body: JSON.stringify(arr)
+              });
+              console.log(score);
+              
+          } catch (error) {
+              console.log(error);
+          }
+          
+          window.location = "fail"
+      },5000);
+      return () => clearTimeout(timer);
+    }, [score])
     
     useEffect(() => {
       
@@ -54,7 +77,6 @@ function Game() {
       const context = canvas.getContext('2d')
       frameCount = 0
       let animationFrameId
-      let myVar = setInterval(end,10000)
       
 
       const render = () => {
@@ -88,25 +110,7 @@ function Game() {
       frameCount = 0
       rand = Math.random() * window.innerWidth       
     }
-    async function end(){
-      try {
-          const Rname = {username}
-          const Rscore = {score}
-
-          const arr = [Rname, Rscore]
-          const response = await fetch("http://localhost:4001/score", {
-              method: "POST",
-              headers: {"Content-Type": "application/json"},
-              body: JSON.stringify(arr)
-          });
-          window.location.reload()
-      } catch (error) {
-          console.log(error);
-      }
     
-      localStorage.getItem("score")
-      window.location = "fail"
-    }
 
     return (
         <div>

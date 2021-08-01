@@ -1,8 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {IoIosPeople} from "react-icons/io"
 
 function Fail() {
+    const [data, setData] = useState("")
+    
+    useEffect(()=>{
+        async function getTodos(){
+            try {
+                const response = await fetch("http://localhost:4001/scores");
+                const jsonData = await response.json();
+                setData(jsonData);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getTodos()
+    },[])
+    
     var history = useHistory()
     return (
         <div className="fail">
@@ -18,11 +33,16 @@ function Fail() {
 
             <div className="leader">
                 <h1>Leaderboards: </h1> 
-                <ul>
-                    <li>
-                        Lukas: 200
-                    </li>
-                </ul>
+                <ol>
+                    {data && data.map(d => {
+                        return(
+                            <li>
+                                {d.username}: {d.score}
+                            </li>
+                        )
+                    })}
+                    
+                </ol>
             </div>
             
         </div>

@@ -30,7 +30,7 @@ app.post("/scores", async(req, res)=>{
 
 app.get("/scores", async (req, res) => {
     try {
-      const allscores = await pool.query("SELECT * FROM scores");
+      const allscores = await pool.query("SELECT * FROM scores ORDER BY score DESC");
       res.json(allscores.rows);
     } catch (err) {
       console.error(err.message);
