@@ -13,12 +13,12 @@ app.use(express.json())
 
 //create
 
-app.post("/todos", async(req, res)=>{
+app.post("/scores", async(req, res)=>{
     try {
         const respo = req.body
         console.log(respo);
-        const newTodo = await pool.query("INSERT INTO todo (body, username, ctime, isedited, stared) VALUES($1, $2, $3, $4, $5) RETURNING *",
-         [respo[0].body, respo[1].username, new Date().toLocaleString(), respo[3], false]);
+        const newTodo = await pool.query("INSERT INTO scores (username, score) VALUES($1, $2) RETURNING *",
+        [respo[0].username,respo[1].score]);
         console.log(newTodo);
         res.json(newTodo.rows[0])
     } catch (error) {
@@ -28,10 +28,10 @@ app.post("/todos", async(req, res)=>{
 
 //get all
 
-app.get("/todos", async (req, res) => {
+app.get("/scores", async (req, res) => {
     try {
-      const allTodos = await pool.query("SELECT * FROM todo");
-      res.json(allTodos.rows);
+      const allscores = await pool.query("SELECT * FROM scores");
+      res.json(allscores.rows);
     } catch (err) {
       console.error(err.message);
     }
@@ -40,10 +40,10 @@ app.get("/todos", async (req, res) => {
 
 //get one
 
-app.get("/todos/:id", async(req, res)=>{
+app.get("/scores/:id", async(req, res)=>{
     try {
         const {id} = req.params
-        const todo = await pool.query("SELECT * FROM todo WHERE id = $1", [id])
+        const todo = await pool.query("SELECT * FROM scores WHERE id = $1", [id])
         
         res.json(todo.rows[0])
     } catch (error) {
@@ -53,18 +53,14 @@ app.get("/todos/:id", async(req, res)=>{
 
 //update 
 
-app.put("/todos/:id", async(req, res)=>{
+app.put("/scores/:id", async(req, res)=>{
     try {
         const {id} = req.params
         const respo = req.body
         console.log(respo);
 
-        if(respo[0]){
-            const updateTodo = await pool.query("UPDATE todo SET body = $1, isedited = $2 WHERE id = $3", [respo[0].body, respo[1].isedited, id]);
-        }else{
-            const updateTodo = await pool.query("UPDATE todo SET stared = NOT stared WHERE id = $1", [id]);
-            console.log(updateTodo);
-        }
+        
+        const updateTodo = await pool.query("UPDATE scores SET username = $1, score = $2 WHERE id = $3", [respo[0].username, respo[1].score, id]);
         res.json("todo was updated")
     } catch (error) {
         console.log(error);
@@ -73,10 +69,10 @@ app.put("/todos/:id", async(req, res)=>{
 
 //delete
 
-app.delete("/todos/:id", async(req, res)=>{
+app.delete("/scores/:id", async(req, res)=>{
     try {
         const {id} = req.params
-        const deleteTodo = await pool.query("DELETE FROM todo WHERE id = $1", [id]);
+        const deleteTodo = await pool.query("DELETE FROM scores WHERE id = $1", [id]);
         res.json("Todo was deleted!")
     } catch (error) {
         console.log(error);

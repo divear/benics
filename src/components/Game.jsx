@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 function Game() {
+    var username = localStorage.getItem("username")
     var frameCount = 0
     var [score, setScore] = useState(0)
     function submit(){
@@ -87,7 +88,22 @@ function Game() {
       frameCount = 0
       rand = Math.random() * window.innerWidth       
     }
-    function end(){
+    async function end(){
+      try {
+          const Rname = {username}
+          const Rscore = {score}
+
+          const arr = [Rname, Rscore]
+          const response = await fetch("http://localhost:4001/score", {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify(arr)
+          });
+          window.location.reload()
+      } catch (error) {
+          console.log(error);
+      }
+    
       localStorage.getItem("score")
       window.location = "fail"
     }
