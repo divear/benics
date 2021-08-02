@@ -4,6 +4,7 @@ import {IoIosPeople} from "react-icons/io"
 
 function Fail() {
     const [data, setData] = useState("")
+    var place = 0
     
     useEffect(()=>{
         async function getTodos(){
@@ -33,16 +34,26 @@ function Fail() {
 
             <div className="leader">
                 <h1>Leaderboards: </h1> 
-                <ol>
-                    {data && data.map(d => {
-                        return(
-                            <li>
-                                {d.username}: {d.score}
-                            </li>
-                        )
-                    })}
-                    
-                </ol>
+                <table>
+                    <thead>
+                        <th>place</th>
+                        <th>name</th>
+                        <th>score</th>
+                    </thead>
+                    <tbody>
+                        {data && data.map(d => {
+                            place++
+                            return(
+                                    <tr>
+                                        <td>{place}.</td>
+                                        <td>{d.username}</td>
+                                        <td>{d.score}</td>
+                                    </tr>
+                            )
+                        })}
+                    </tbody>
+
+                </table>
             </div>
             
         </div>
