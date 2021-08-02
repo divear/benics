@@ -11,7 +11,7 @@ function Input() {
     return (
         <div>
             <title>benics</title>
-            <h1><IoIosPeople/>benics</h1>
+            <a className="titleS" href="/"><h1><IoIosPeople/>benics</h1></a>
             
             <form onSubmit={start} className="sign" action="/game">
                 <label htmlFor="i">Type in your name: </label>

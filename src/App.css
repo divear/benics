@@ -60,6 +60,8 @@ body{
     top: 1%;
 }
 .titleS{
+    color: var(--fore);
+    text-decoration: none;
     text-align: left;
     position: absolute;
     top: 1%;

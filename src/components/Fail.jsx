@@ -24,7 +24,7 @@ function Fail() {
             <title>end</title>
 
 
-            <h1 className="titleS"><IoIosPeople/>benics</h1>
+            <a className="titleS" href="/"><h1><IoIosPeople/>benics</h1></a>
             
 
             <h1>Game over</h1>
