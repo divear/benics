@@ -97,3 +97,9 @@ th {
 tr {
     height: 0.05vw;
 }
+
+.pers {
+    position: absolute;
+    left: 0%;
+    top: 20%;
+}
