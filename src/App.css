@@ -103,3 +103,9 @@ tr {
     left: 0%;
     top: 20%;
 }
+
+.persbest {
+    color: chocolate;
+    font-size: 1vw;
+    margin: 0;
+}

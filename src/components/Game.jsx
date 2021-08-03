@@ -83,10 +83,6 @@ function Game() {
         frameCount++
         fr = frameCount
 
-        if(fr > 150){
-          reset()
-          return
-        }
        
 
         draw(context, fr)
