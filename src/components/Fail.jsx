@@ -10,17 +10,19 @@ function Fail() {
     var place1 = 0
     const [best, setBest] = useState(null)
     const [done, setDone] = useState(false)
+    const [isAsc, setIsAsc] = useState(localStorage.getItem("isAsc") || false)
+
+    async function getTodos(){
+        try {
+            const response = await fetch("http://localhost:4001/scores");
+            const jsonData = await response.json();
+            setData(jsonData);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
     useEffect(()=>{
-        async function getTodos(){
-            try {
-                const response = await fetch("http://localhost:4001/scores");
-                const jsonData = await response.json();
-                setData(jsonData);
-            } catch (error) {
-                console.log(error);
-            }
-        }
         getTodos()
 
         async function getTodosP(){
@@ -35,7 +37,36 @@ function Fail() {
             }
         }
         getTodosP()
+
+        set()
     },[])
+
+    async function set(){
+        try {
+            const arr = {isAsc}
+            const response = await fetch(`http://localhost:4001/scores/8`, {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(arr)
+            });
+            const jsonData = await response.json();
+
+
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+
+    function changeSort(){
+        console.log(!isAsc);
+        setIsAsc(!isAsc)
+        //console.log(isAsc);
+        localStorage.setItem("isAsc", isAsc)
+        set().then(window.location.reload())
+
+
+    }
     
     var history = useHistory()
     return (
@@ -80,6 +111,10 @@ function Fail() {
 
             <div className="leader">
                 <h1>Leaderboards: </h1> 
+
+                <label htmlFor="select">Sort by: </label>
+                <button className="select" onClick={changeSort} id="select">{isAsc ? "worst" : "best"}</button>
+
                 <table>
                     <thead>
                         <th>place</th>

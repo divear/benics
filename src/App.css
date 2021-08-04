@@ -109,3 +109,9 @@ tr {
     font-size: 1vw;
     margin: 0;
 }
+
+.select {
+    cursor: pointer;
+    background-color: var(--gre);
+    color: var(--fore);
+}

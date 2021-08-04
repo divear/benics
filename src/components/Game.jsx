@@ -83,8 +83,6 @@ function Game() {
         frameCount++
         fr = frameCount
 
-       
-
         draw(context, fr)
         animationFrameId = window.requestAnimationFrame(render)
       }
@@ -106,7 +104,6 @@ function Game() {
       frameCount = 0
       rand = Math.random() * window.innerWidth       
     }
-    
 
     return (
         <div>

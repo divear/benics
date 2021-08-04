@@ -16,7 +16,7 @@ function Input() {
             <form onSubmit={start} className="sign" action="/game">
                 <label htmlFor="i">Type in your name: </label>
                 <br />
-                <input onChange={e => setUname(e.target.value)} value={uname} id="i" type="text" className="inputText"/>
+                <input autoComplete="nickname" autoFocus={true} onChange={e => setUname(e.target.value)} value={uname} id="i" type="text" className="inputText"/>
                 <br />
                 <button className="start">Start playing!!</button>
             </form>
