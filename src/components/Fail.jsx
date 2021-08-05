@@ -11,9 +11,6 @@ function Fail() {
     const [best, setBest] = useState(null)
     const [done, setDone] = useState(false)
     const [isAsc, setIsAsc] = useState(false)
-
-
-    
     
     useEffect(()=>{
         getTodos()
@@ -45,6 +42,12 @@ function Fail() {
         setData(data.reverse());
 
         setIsAsc(!isAsc)
+        // if(isAsc){
+        //     place = data.length
+        //     console.log(place);
+        // }else{
+        //     place = 0
+        // }
     }
     
     var history = useHistory()
@@ -104,7 +107,15 @@ function Fail() {
                     </thead>
                     <tbody>
                         {data && data.map(d => {
-                            place++
+                            if(!isAsc){
+                                place++
+                            }else{
+                                if(place == 0){
+                                    place = data.length+1
+                                }
+                                console.log(place);
+                                place--
+                            }
                             return(
                                     <tr key={d.id}>
                                         <td>{place}.</td>
