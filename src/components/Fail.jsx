@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {IoIosPeople} from "react-icons/io"
 
@@ -11,6 +11,7 @@ function Fail() {
     const [best, setBest] = useState(null)
     const [done, setDone] = useState(false)
     const [isAsc, setIsAsc] = useState(false)
+    const myRef = useRef(null)
     
     useEffect(()=>{
         getTodos()
@@ -42,21 +43,21 @@ function Fail() {
         setData(data.reverse());
 
         setIsAsc(!isAsc)
-        // if(isAsc){
-        //     place = data.length
-        //     console.log(place);
-        // }else{
-        //     place = 0
-        // }
+        console.log(window.pageYOffset);
     }
+
+    useEffect(()=>{
+        console.log("dd");
+    },[window.pageYOffset])
     
     var history = useHistory()
     return (
 
         <div className="fail">
+
             <title>end</title>
 
-            <a className="titleS" href="/"><h1><IoIosPeople/>benics</h1></a>
+            <a ref={myRef} className="titleS" href="/"><h1><IoIosPeople/>benics</h1></a>
 
             <div className="pers">
                 <h1>Your scores: </h1>
@@ -77,8 +78,8 @@ function Fail() {
                                 place1++
                                 return(
                                         <tr key={d.id}>
-                                            <td>{place1}.</td>
-                                            <td>{d.username}</td>
+                                            <td className={place1 == 1 ? "first" : place1 == 2 ? "second" : place1 == 3 ? "third" : ""}>{place1}.</td>
+                                            <td className="you">{d.username}</td>
                                             <td>{d.score}</td>
                                         </tr>
                                 )
@@ -113,17 +114,19 @@ function Fail() {
                                 if(place == 0){
                                     place = data.length+1
                                 }
-                                console.log(place);
                                 place--
                             }
                             return(
                                     <tr key={d.id}>
-                                        <td>{place}.</td>
-                                        <td>{d.username}</td>
+                                        <td className={place == 1 ? "first" : place == 2 ? "second" : place == 3 ? "third" : ""}>{place}.</td>
+                                        {/* spaghetti code, but i cant find a better option */}
+                                        <td className={d.username == localStorage.getItem("username") && place < 4 ? "top3You" : d.username == localStorage.getItem("username") && place < 10 ? "youloser" : place < 4 ? "top3" : d.username == localStorage.getItem("username") ? "you" : place < 10 ? "losers" : ""}>{d.username}</td>
                                         <td>{d.score}</td>
                                     </tr>
                             )
                         })}
+                        <button onClick={()=> myRef.current.scrollIntoView()} className="d">Go back up</button>
+
                     </tbody>
 
                 </table>

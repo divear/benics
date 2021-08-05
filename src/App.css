@@ -33,6 +33,11 @@ body {
     cursor: pointer;
 }
 
+.start:hover {
+    color: #96abbd;
+    background-color: #1c722f;
+}
+
 .quit {
     margin: 0%;
     float: left;
@@ -114,4 +119,44 @@ tr {
     cursor: pointer;
     background-color: var(--gre);
     color: var(--fore);
+}
+
+.you {
+    color: rgb(228, 125, 87);
+}
+
+.first {
+    color: gold;
+}
+
+.second {
+    color: silver;
+}
+
+.third {
+    color: #cd7f32;
+}
+
+.d {
+    cursor: pointer;
+    margin: 0.05vw;
+    background-color: skyblue;
+}
+
+.top3 {
+    background-color: #11414e;
+}
+
+.top3You {
+    color: rgb(228, 125, 87);
+    background-color: #11414e;
+}
+
+.losers {
+    background-color: #276070;
+}
+
+.youloser {
+    background-color: #276070;
+    color: rgb(228, 125, 87);
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 function Game() {
+
     var username = localStorage.getItem("username")
     var frameCount = 0
     var [score, setScore] = useState(0)
@@ -111,7 +112,7 @@ function Game() {
             <form onSubmit={()=>submit}>
                 <button className="quit">Quit</button>
                 <h1 className="name">{localStorage.getItem("username") ? localStorage.getItem("username") : submit()}</h1>
-                <h1 className="score">Score: {score}</h1>
+                <h1 className="score">Score: <b style={{color: `hsl(${score*5}, 70%, 50%)`}}>{score}</b></h1>
             </form>
             <canvas onClick={reset} onMouseMove={(e) => move(e)} className="canvas" ref={canvasRef}/>
         </div>
