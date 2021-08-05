@@ -10,7 +10,15 @@ function Fail() {
     var place1 = 0
     const [best, setBest] = useState(null)
     const [done, setDone] = useState(false)
-    const [isAsc, setIsAsc] = useState(localStorage.getItem("isAsc") || false)
+    const [isAsc, setIsAsc] = useState(false)
+
+
+    
+    
+    useEffect(()=>{
+        getTodos()
+        getTodosP()
+    },[])
 
     async function getTodos(){
         try {
@@ -21,51 +29,22 @@ function Fail() {
             console.log(error);
         }
     }
+
     
-    useEffect(()=>{
-        getTodos()
-
-        async function getTodosP(){
-            try {
-                const response = await fetch(`http://localhost:4001/scores/${localStorage.getItem("username")}`);
-                const jsonData = await response.json();
-                //console.log(jsonData);
-                setDataP(jsonData && jsonData);
-                //console.log(dataP);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getTodosP()
-
-        set()
-    },[])
-
-    async function set(){
+    async function getTodosP(){
         try {
-            const arr = {isAsc}
-            const response = await fetch(`http://localhost:4001/scores/8`, {
-                method: "PUT",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(arr)
-            });
+            const response = await fetch(`http://localhost:4001/scores/${localStorage.getItem("username")}`);
             const jsonData = await response.json();
-
-
+            setDataP(jsonData && jsonData);
         } catch (error) {
             console.log(error);
         }
-        
     }
 
     function changeSort(){
-        console.log(!isAsc);
+        setData(data.reverse());
+
         setIsAsc(!isAsc)
-        //console.log(isAsc);
-        localStorage.setItem("isAsc", isAsc)
-        set().then(window.location.reload())
-
-
     }
     
     var history = useHistory()
@@ -80,9 +59,11 @@ function Fail() {
                 <h1>Your scores: </h1>
                 <table>
                         <thead>
-                            <th>place</th>
-                            <th>name</th>
-                            <th>score</th>
+                            <tr>
+                                <th>place</th>
+                                <th>name</th>
+                                <th>score</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {dataP && dataP.map(d => {

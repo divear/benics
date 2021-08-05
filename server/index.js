@@ -2,7 +2,6 @@ const express = require("express");
 const app = express()
 const cors = require("cors")
 const pool = require("./db")
-var isAsc = false
 
 //middleware
 app.use(cors());
@@ -25,14 +24,10 @@ app.post("/scores", async(req, res) => {
 
 //get all
 app.get("/scores", async(req, res) => {
+
     try {
-        var allscores;
-        console.log(isAsc);
-        if (isAsc) {
-            allscores = await pool.query("SELECT * FROM scores ORDER BY score DESC");
-        } else if (!isAsc) {
-            allscores = await pool.query("SELECT * FROM scores ORDER BY score");
-        }
+
+        var allscores = await pool.query("SELECT * FROM scores ORDER BY score DESC");
         res.json(allscores.rows);
     } catch (err) {
         console.error(err.message);
@@ -57,7 +52,6 @@ app.get("/scores/:name", async(req, res) => {
 app.put("/scores/:id", async(req, res) => {
     try {
         const respo = req.body
-        isAsc = respo.isAsc
 
     } catch (error) {
         console.log(error);
